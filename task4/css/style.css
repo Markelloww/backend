@@ -50,3 +50,20 @@ html, body {
 #form select[multiple] {
 	height: 120px;
 }
+
+.error-message {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 4px;
+}
+.error-field {
+    border-color: #dc3545 !important;
+}
+.success {
+    color: #28a745;
+    background-color: #d4edda;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    text-align: center;
+}
