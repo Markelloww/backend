@@ -34,15 +34,6 @@ if (empty($_POST['language'])) {
 if (empty($_POST['contract'])) {
     $errors[] = 'Необходимо подтвердить ознакомление с контрактом';
 }
-$validLanguages = ['Pascal', 'C', 'C++', 'JavaScript', 'PHP', 'Python', 'Java', 'Haskel', 'Clojure', 'Prolog', 'Scala', 'Go'];
-if (!empty($_POST['language'])) {
-    foreach ($_POST['language'] as $lang) {
-        if (!in_array($lang, $validLanguages)) {
-            $errors[] = 'Указан недопустимый язык программирования: ' . htmlspecialchars($lang);
-            break;
-        }
-    }
-}
 if (!empty($errors)) {
     echo '<div class="errors">';
     foreach ($errors as $error) {
