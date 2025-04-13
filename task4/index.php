@@ -40,7 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     include('form.html');
     exit();
 }
-п
 $errors = [];
 if (empty($_POST['name'])) {
     $errors['name'] = 'Поле ФИО обязательно для заполнения';
