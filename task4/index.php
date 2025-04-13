@@ -16,32 +16,22 @@ $fields = [
     'contract' => false
 ];
 
-if (isset($_COOKIE['form_data'])) {
-    $saved_data = json_decode($_COOKIE['form_data'], true);
-    if (is_array($saved_data)) {
-        foreach ($saved_data as $key => $value) {
-            if (array_key_exists($key, $fields)) {
-                $fields[$key] = $value;
-            }
-        }
-    }
+$errors = [];
+if (isset($_COOKIE['form_errors'])) {
+    $errors = json_decode($_COOKIE['form_errors'], true);
 }
 
-$errors = [];
+if (!empty($errors)) {
+    setcookie('form_errors', json_encode($errors), 0, '/');
+    setcookie('form_data', json_encode($_POST), 0, '/');
+    header('Location: index.php');
+    exit();
+}
+
 if (isset($_COOKIE['form_errors'])) {
     $errors = json_decode($_COOKIE['form_errors'], true);
     setcookie('form_errors', '', time() - 3600, '/');
 }
-
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    if (!empty($_GET['save'])) {
-        echo '<div class="success">Данные успешно сохранены!</div>';
-    }
-    include('form.html');
-    exit();
-}
-
-$errors = [];
 
 if (empty($_POST['name'])) {
     $errors['name'] = 'Поле ФИО обязательно для заполнения';
