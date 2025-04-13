@@ -5,6 +5,34 @@ $db_user = 'u68594';
 $db_pass = '2729694';
 $db_name = 'u68594';
 
+$fields = [
+    'name' => '',
+    'phone' => '',
+    'email' => '',
+    'birthday' => '',
+    'gender' => 'Мужской',
+    'language' => [],
+    'biography' => '',
+    'contract' => false
+];
+
+if (isset($_COOKIE['form_data'])) {
+    $saved_data = json_decode($_COOKIE['form_data'], true);
+    if (is_array($saved_data)) {
+        foreach ($saved_data as $key => $value) {
+            if (array_key_exists($key, $fields)) {
+                $fields[$key] = $value;
+            }
+        }
+    }
+}
+
+$errors = [];
+if (isset($_COOKIE['form_errors'])) {
+    $errors = json_decode($_COOKIE['form_errors'], true);
+    setcookie('form_errors', '', time() - 3600, '/');
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if (!empty($_GET['save'])) {
         echo '<div class="success">Данные успешно сохранены!</div>';
@@ -12,46 +40,66 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     include('form.html');
     exit();
 }
+
 $errors = [];
-if (empty($_POST['name']) || !preg_match('/^[а-яА-ЯёЁa-zA-Z\s]+$/u', $_POST['name'])) {
-    $errors[] = 'Укажите корректное ФИО';
+if (empty($_POST['name'])) {
+    $errors['name'] = 'Поле ФИО обязательно для заполнения';
 }
-if (empty($_POST['phone']) || !preg_match('/^(\+7|8)\d{10}$/', $_POST['phone'])) {
-    $errors[] = 'Укажите корректно телефон';
+elseif (!preg_match('/^[а-яА-ЯёЁa-zA-Z\s]+$/u', $_POST['name'])) {
+    $errors['name'] = 'ФИО может содержать только буквы и пробелы';
 }
-if (empty($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-    $errors[] = 'Укажите корректный email';
+if (empty($_POST['phone'])) {
+    $errors['phone'] = 'Поле Телефон обязательно для заполнения';
+}
+elseif (!preg_match('/^(\+7|8)\d{10}$/', $_POST['phone'])) {
+    $errors['phone'] = 'Телефон должен быть в формате +7XXXXXXXXXX или 8XXXXXXXXXX';
+}
+if (empty($_POST['email'])) {
+    $errors['email'] = 'Поле Email обязательно для заполнения';
+}
+elseif (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+    $errors['email'] = 'Введите корректный email адрес';
 }
 if (empty($_POST['birthday'])) {
-    $errors[] = 'Укажите дату рождения';
+    $errors['birthday'] = 'Поле Дата рождения обязательно для заполнения';
 }
 if (empty($_POST['gender']) || !in_array($_POST['gender'], ['Мужской', 'Женский'])) {
-    $errors[] = 'Укажите пол';
+    $errors['gender'] = 'Укажите пол';
 }
 if (empty($_POST['language'])) {
-    $errors[] = 'Выберите хотя бы один язык программирования';
+    $errors['language'] = 'Выберите хотя бы один язык программирования';
 }
-if (empty($_POST['contract'])) {
-    $errors[] = 'Необходимо подтвердить ознакомление с контрактом';
-}
-$validLanguages = ['Pascal', 'C', 'C++', 'JavaScript', 'PHP', 'Python', 'Java', 'Haskel', 'Clojure', 'Prolog', 'Scala', 'Go'];
-if (!empty($_POST['language'])) {
+else {
+    $validLanguages = ['Pascal', 'C', 'C++', 'JavaScript', 'PHP', 'Python', 'Java', 'Haskel', 'Clojure', 'Prolog', 'Scala', 'Go'];
     foreach ($_POST['language'] as $lang) {
         if (!in_array($lang, $validLanguages)) {
-            $errors[] = 'Указан недопустимый язык программирования: ' . htmlspecialchars($lang);
+            $errors['language'] = 'Указан недопустимый язык программирования';
             break;
         }
     }
 }
+if (empty($_POST['contract'])) {
+    $errors['contract'] = 'Необходимо подтвердить ознакомление с контрактом';
+}
+
 if (!empty($errors)) {
-    echo '<div class="errors">';
-    foreach ($errors as $error) {
-        echo htmlspecialchars($error) . '<br>';
-    }
-    echo '</div>';
-    include('form.html');
+    setcookie('form_errors', json_encode($errors), 0, '/');
+    setcookie('form_data', json_encode($_POST), 0, '/');
+    header('Location: index.php');
     exit();
 }
+$form_data = [
+    'name' => $_POST['name'],
+    'phone' => $_POST['phone'],
+    'email' => $_POST['email'],
+    'birthday' => $_POST['birthday'],
+    'gender' => $_POST['gender'],
+    'language' => $_POST['language'],
+    'biography' => $_POST['biography'] ?? '',
+    'contract' => true
+];
+setcookie('form_data', json_encode($form_data), time() + 60 * 60 * 24 * 365, '/');
+
 try {
     $db = new PDO("mysql:host=localhost;dbname=$db_name", $db_user, $db_pass, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
