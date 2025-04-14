@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     }
     
     setcookie('errors', '', time() - 3600, '/');
-    include('form.html');
+    include('form.php');
     exit();
 }
 

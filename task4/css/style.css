@@ -7,6 +7,41 @@ html, body {
 	justify-content: center;
 	align-items: center;
 }
+.errors {
+    background-color: #ffeeee;
+    border-left: 4px solid #ff5252;
+    border-radius: 0 4px 4px 0;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.errors p {
+    color: #d32f2f;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+}
+.errors ul {
+    margin: 0;
+    padding-left: 1.5rem;
+}
+.error {
+    color: #b71c1c;
+    margin: 0.3rem 0;
+    padding: 0.2rem 0;
+    list-style-type: none;
+    position: relative;
+    font-size: 0.95rem;
+}
+.error:before {
+    content: "•";
+    color: #ff5252;
+    font-weight: bold;
+    display: inline-block; 
+    width: 1em;
+    margin-left: -1em;
+    position: absolute;
+}
 .content {
 	background-color: #ffff;
 	padding: 20px;
