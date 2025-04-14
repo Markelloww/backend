@@ -28,42 +28,43 @@ $errors = [];
 $fields = ['name', 'phone', 'email', 'birthday', 'gender', 'biography', 'language', 'contract'];
 $formData = array_intersect_key($_POST, array_flip($fields));
 
+$errors = [];
 if (empty($_POST['name'])) {
-    $errors[] = 'Укажите ФИО';
+    $errors['name'] = 'Укажите ФИО';
 } elseif (!preg_match(NAME_PATTERN, $_POST['name'])) {
-    $errors[] = 'ФИО может содержать только буквы и пробелы';
+    $errors['name'] = 'ФИО может содержать только буквы и пробелы';
 }
 
 if (empty($_POST['phone'])) {
-    $errors[] = 'Укажите номер телефона';
+    $errors['phone'] = 'Укажите номер телефона';
 } elseif (!preg_match(PHONE_PATTERN, $_POST['phone'])) {
-    $errors[] = 'Телефон должен быть в формате +7XXXXXXXXXX или 8XXXXXXXXXX (11 цифр)';
+    $errors['phone'] = 'Телефон должен быть в формате +7XXXXXXXXXX или 8XXXXXXXXXX (11 цифр)';
 }
 
 if (empty($_POST['email'])) {
-    $errors[] = 'Укажите E-mail';
+    $errors['email'] = 'Укажите E-mail';
 } elseif (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-    $errors[] = 'E-mail должен быть в формате you@example.com';
+    $errors['email'] = 'E-mail должен быть в формате you@example.com';
 }
 
 if (empty($_POST['birthday'])) {
-    $errors[] = 'Укажите дату рождения';
+    $errors['birthday'] = 'Укажите дату рождения';
 } elseif (!preg_match(DATE_PATTERN, $_POST['birthday'])) {
-    $errors[] = 'Дата должна быть в формате ДД-ММ-ГГГГ';
+    $errors['birthday'] = 'Дата должна быть в формате ДД-ММ-ГГГГ';
 }
 
 if (empty($_POST['gender'])) {
-    $errors[] = 'Укажите пол';
+    $errors['gender'] = 'Укажите пол';
 } elseif (!preg_match('/^(Мужской|Женский)$/u', $_POST['gender'])) {
-    $errors[] = 'Пол должен быть "Мужской" или "Женский"';
+    $errors['gender'] = 'Пол должен быть "Мужской" или "Женский"';
 }
 
 if (empty($_POST['language'])) {
-    $errors[] = 'Выберите хотя бы один язык программирования';
+    $errors['language'] = 'Выберите хотя бы один язык программирования';
 } else {
     foreach ($_POST['language'] as $lang) {
         if (!preg_match('/^[а-яА-ЯёЁa-zA-Z0-9+#\s]+$/u', $lang)) {
-            $errors[] = 'Название языка содержит недопустимые символы';
+            $errors['language'] = 'Название языка содержит недопустимые символы';
             break;
         }
     }

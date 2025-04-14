@@ -7,6 +7,10 @@ html, body {
 	justify-content: center;
 	align-items: center;
 }
+.error-field {
+    border: 1px solid #ff5252 !important;
+    background-color: #ffeeee;
+}
 .success {
     background-color: #eeffee;
     border-left: 4px solid #4caf50;
