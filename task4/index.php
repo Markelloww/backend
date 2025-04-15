@@ -6,6 +6,8 @@ define('PHONE_PATTERN', '/^(\+7|8)\d{10}$/');
 define('DATE_PATTERN', '/^\d{4}-\d{2}-\d{2}$/');
 define('BIO_PATTERN', '/^[а-яА-ЯёЁa-zA-Z0-9\s.,!?-]+$/u');
 
+$languages = ['Pascal', 'C', 'C++', 'JavaScript', 'PHP','Python', 'Java', 'Haskel', 'Clojure','Prolog', 'Scala', 'Go'];
+
 $db_user = 'u68594';
 $db_pass = '2729694';
 $db_name = 'u68594';
@@ -55,7 +57,7 @@ if (empty($_POST['birthday'])) {
 
 if (empty($_POST['gender'])) {
     $errors['gender'] = 'Укажите пол';
-} elseif (!preg_match('/^(Мужской|Женский)$/u', $_POST['gender'])) {
+} elseif (!in_array($_POST['gender'], ['Мужской', 'Женский'])) {
     $errors['gender'] = 'Пол должен быть "Мужской" или "Женский"';
 }
 
@@ -63,19 +65,19 @@ if (empty($_POST['language'])) {
     $errors['language'] = 'Выберите хотя бы один язык программирования';
 } else {
     foreach ($_POST['language'] as $lang) {
-        if (!preg_match('/^[а-яА-ЯёЁa-zA-Z0-9+#\s]+$/u', $lang)) {
-            $errors['language'] = 'Название языка содержит недопустимые символы';
+        if (!in_array($lang, $languages)) {
+            $errors['language'] = 'Выбран некорректный язык';
             break;
         }
     }
 }
 
 if (!empty($_POST['biography']) && !preg_match(BIO_PATTERN, $_POST['biography'])) {
-    $errors[] = 'Биография содержит недопустимые символы';
+    $errors['biography'] = 'Биография содержит недопустимые символы';
 }
 
-if (empty($_POST['contract']) || !preg_match('/^on$/', $_POST['contract'])) {
-    $errors[] = 'Необходимо подтвердить ознакомление с контрактом';
+if (empty($_POST['contract'])) {
+    $errors['contract'] = 'Необходимо подтвердить ознакомление с контрактом';
 }
 
 if (!empty($errors)) {
