@@ -44,10 +44,14 @@
             <label>Пол:</label>
             <div>
                 <div class="<?= isset($errors['gender']) ? 'error-field' : '' ?>">
-                    <input type="radio" name="gender" value="Мужской" id="gender_male" <?= ($data['gender'] ?? '') == 'Мужской' ? 'checked' : '' ?>>
-                    <label for="gender_male">Мужской</label>
-                    <input type="radio" name="gender" value="Женский" id="gender_female" <?= ($data['gender'] ?? '') == 'Женский' ? 'checked' : '' ?>>
-                    <label for="gender_female">Женский</label>
+                    <label>
+                        <input type="radio" name="gender" value="Мужской" <?= ($data['gender'] ?? '') == 'Мужской' ? 'checked' : '' ?>>
+                        Мужской
+                    </label>
+                    <label>
+                        <input type="radio" name="gender" value="Женский" <?= ($data['gender'] ?? '') == 'Женский' ? 'checked' : '' ?>>
+                        Женский
+                    </label>
                 </div>
             </div>
             <br>
