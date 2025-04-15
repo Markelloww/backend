@@ -26,7 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     exit();
 }
 
-$errors = [];
 $fields = ['name', 'phone', 'email', 'birthday', 'gender', 'biography', 'language', 'contract'];
 $formData = array_intersect_key($_POST, array_flip($fields));
 
