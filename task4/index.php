@@ -15,12 +15,10 @@ $db_name = 'u68594';
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $errors = json_decode($_COOKIE['errors'] ?? '', true) ?: [];
     $formData = json_decode($_COOKIE['formData'] ?? '', true) ?: [];
-    
     if (!empty($_GET['save'])) {
         echo '<div class="success">Данные успешно сохранены!</div>';
         setcookie('savedData', json_encode($formData), time() + 60*60*24*365, path: '/');
     }
-    
     setcookie('errors', '', time() - 3600, '/');
     include('form.php');
     exit();
@@ -30,6 +28,7 @@ $fields = ['name', 'phone', 'email', 'birthday', 'gender', 'biography', 'languag
 $formData = array_intersect_key($_POST, array_flip($fields));
 
 $errors = [];
+
 if (empty($_POST['name'])) {
     $errors['name'] = 'Укажите ФИО';
 } elseif (!preg_match(NAME_PATTERN, $_POST['name'])) {

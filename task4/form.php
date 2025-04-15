@@ -26,19 +26,19 @@
     <div class="content">
         <form id="form" method="POST" action="index.php">
             <label for="name">ФИО:</label>
-            <input type="text" name="name" value="<?= htmlspecialchars($data['name'] ?? '') ?>" class="<?= isset($errors['name']) ? 'error-field' : '' ?>">
+            <input type="text" name="name" placeholder="Введите ваши ФИО" required type="text" value="<?= htmlspecialchars($data['name'] ?? '') ?>" class="<?= isset($errors['name']) ? 'error-field' : '' ?>">
             <br>
 
             <label for="phone">Телефон:</label>
-            <input type="text" name="phone" value="<?= htmlspecialchars($data['phone'] ?? '') ?>" class="<?= isset($errors['phone']) ? 'error-field' : '' ?>">
+            <input type="text" name="phone" placeholder="88005553535" required type="tel" value="<?= htmlspecialchars($data['phone'] ?? '') ?>" class="<?= isset($errors['phone']) ? 'error-field' : '' ?>">
             <br>
 
             <label for="email">E-mail:</label>
-            <input type="text" name="email" value="<?= htmlspecialchars($data['email'] ?? '') ?>" class="<?= isset($errors['email']) ? 'error-field' : '' ?>">
+            <input type="text" name="email" placeholder="you@example.com" required type="email" value="<?= htmlspecialchars($data['email'] ?? '') ?>" class="<?= isset($errors['email']) ? 'error-field' : '' ?>">
             <br>
 
             <label for="birthday">Дата рождения:</label>
-            <input type="date" name="birthday" value="<?= htmlspecialchars($data['birthday'] ?? '') ?>" class="<?= isset($errors['birthday']) ? 'error-field' : '' ?>">
+            <input type="date" name="birthday" required type="date" value="<?= htmlspecialchars($data['birthday'] ?? '') ?>" class="<?= isset($errors['birthday']) ? 'error-field' : '' ?>">
             <br>
 
             <label>Пол:</label>
@@ -64,13 +64,13 @@
                 foreach ($languages as $lang): 
                     $isSelected = in_array($lang, $selectedLanguages);
                 ?>
-                    <option value="<?= htmlspecialchars($lang) ?>" <?= $isSelected ? 'selected' : '' ?>><?= htmlspecialchars($lang) ?></option>
+                <option value="<?= htmlspecialchars($lang) ?>" <?= $isSelected ? 'selected' : '' ?>><?= htmlspecialchars($lang) ?></option>
                 <?php endforeach; ?>
             </select>
             <br>
 
             <label for="biography">Биография:</label>
-            <textarea name="biography" id="biography" class="<?= isset($errors['biography']) ? 'error-field' : '' ?>"><?=
+            <textarea name="biography" id="biography" placeholder="Расскажите о себе" class="<?= isset($errors['biography']) ? 'error-field' : '' ?>"><?=
                 htmlspecialchars($data['biography'] ?? '') ?></textarea>
             <br>
 
