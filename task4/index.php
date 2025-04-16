@@ -13,13 +13,17 @@ $db_pass = '2729694';
 $db_name = 'u68594';
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    $errors = json_decode($_COOKIE['errors'] ?? '', true) ?: [];
-    $formData = json_decode($_COOKIE['formData'] ?? '', true) ?: [];
     if (!empty($_GET['save'])) {
         echo '<div class="success">Данные успешно сохранены!</div>';
-        setcookie('savedData', json_encode($formData), time() + 60*60*24*365, path: '/');
     }
-    setcookie('errors', '', time() - 3600, '/');
+    $errors = json_decode($_COOKIE['savedData'] ?? '', true) ?: [];
+    $forma = [];
+    if (isset($_COOKIE['savedData'])) {
+        $forma = json_decode($_COOKIE['savedData'], true);
+    } elseif (isset($_COOKIE['formData'])) {
+        $forma = json_decode($_COOKIE['formData'], true);
+    }
+
     include('form.php');
     exit();
 }
@@ -28,7 +32,6 @@ $fields = ['name', 'phone', 'email', 'birthday', 'gender', 'biography', 'languag
 $formData = array_intersect_key($_POST, array_flip($fields));
 
 $errors = [];
-
 if (empty($_POST['name'])) {
     $errors['name'] = 'Укажите ФИО';
 } elseif (!preg_match(NAME_PATTERN, $_POST['name'])) {
@@ -79,8 +82,9 @@ if (empty($_POST['contract'])) {
 }
 
 if (!empty($errors)) {
-    setcookie('errors', json_encode($errors), 0, '/');
+    setcookie('savedData', '', time() - 3600, '/');
     setcookie('formData', json_encode($formData), 0, '/');
+    setcookie('errors', json_encode($errors), 0, '/');
     header('Location: ' . $_SERVER['PHP_SELF']);
     exit();
 }
@@ -110,8 +114,10 @@ try {
     }
     $db->commit();
     
-	setcookie('savedData', json_encode($formData), time() + 60*60*24*365, '/');
     setcookie('formData', '', time() - 3600, '/');
+    setcookie('errors', '', time() - 3600, '/');
+    setcookie('savedData', json_encode($formData), time() + 60 * 60 * 24 * 365, '/');
+
     header('Location: ?save=1');
     exit();
 } catch (PDOException $e) {
