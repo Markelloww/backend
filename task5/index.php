@@ -17,8 +17,8 @@ $messages = array();
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if (!empty($_COOKIE['save'])) {
-        $messages[] = 'Спасибо, результаты сохранены.';
         if (!empty($_COOKIE['login']) && !empty($_COOKIE['pass'])) {
+			$messages[] = 'Спасибо, результаты сохранены.';
             $messages[] = sprintf('Вы можете <a href="login.php">войти</a> с логином <strong>%s</strong>
                 и паролем <strong>%s</strong> для изменения данных.',
                 strip_tags($_COOKIE['login']),
