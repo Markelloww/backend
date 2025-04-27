@@ -25,6 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 strip_tags($_COOKIE['pass']));
         }
         setcookie('save', '', time() - 3600);
+		setcookie('login', '', time() - 3600, '/');
+		setcookie('pass', '', time() - 3600, '/');
     }
     
     $errors = json_decode($_COOKIE['errors'] ?? '', true) ?: [];
