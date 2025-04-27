@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                     'gender' => $userData['gender'],
                     'biography' => $userData['biography'],
                     'language' => explode(',', $userData['languages']),
-                    'contract' => 'on' // Assuming contract is always accepted
+                    'contract' => 'on'
                 ];
             }
         } catch (PDOException $e) {
@@ -157,13 +157,11 @@ try {
             ':id' => $_SESSION['uid']
         ]);
         
-        // Delete old languages
         $stmt = $db->prepare("DELETE FROM application_languages WHERE application_id = :app_id");
         $stmt->execute([':app_id' => $_SESSION['uid']]);
         
         $appId = $_SESSION['uid'];
     } else {
-        // Create new application
         $stmt = $db->prepare("INSERT INTO applications (name, phone, email, birthday, gender, biography) 
                              VALUES (:name, :phone, :email, :birthday, :gender, :biography)");
         $stmt->execute([

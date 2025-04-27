@@ -54,6 +54,14 @@ html, body {
     margin: 1.5rem 0;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
+.messages {
+    background-color: #9dd897;
+    border-left: 4px solid #447c40;
+    border-radius: 0 4px 4px 0;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
 .errors p {
     color: #d32f2f;
     font-weight: 600;
