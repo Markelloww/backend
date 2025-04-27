@@ -18,17 +18,12 @@ $messages = array();
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if (!empty($_COOKIE['save'])) {
         $messages[] = 'Спасибо, результаты сохранены.';
-        
-        if (!empty($_COOKIE['login']) && !empty($_COOKIE['pass']) 
-            && ($_COOKIE['credentials_shown'] ?? '1') === '0') {
+        if (!empty($_COOKIE['login']) && !empty($_COOKIE['pass'])) {
             $messages[] = sprintf('Вы можете <a href="login.php">войти</a> с логином <strong>%s</strong>
                 и паролем <strong>%s</strong> для изменения данных.',
                 strip_tags($_COOKIE['login']),
                 strip_tags($_COOKIE['pass']));
-            
-            setcookie('credentials_shown', '1', time() + 60 * 60 * 24 * 365, '/');
         }
-        
         setcookie('save', '', time() - 3600);
     }
     
