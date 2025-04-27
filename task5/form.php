@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-
     <?php
     $savedData = json_decode($_COOKIE['savedData'] ?? '', true) ?: [];
     $formData = json_decode($_COOKIE['formData'] ?? '', true) ?: [];
@@ -29,14 +28,6 @@
     <?php endif; ?>
 
     <div class="content">
-        <?php if (!empty($_SESSION['login'])): ?>
-            <div class="logout">
-                <form action="logout.php" method="post">
-                    <button type="submit">Выйти (<?= htmlspecialchars($_SESSION['login']) ?>)</button>
-                </form>
-            </div>
-        <?php endif; ?>
-        
         <form id="form" method="POST" action="index.php">
             <label for="name">ФИО:</label>
             <input type="text" name="name" placeholder="Введите ваши ФИО" value="<?= htmlspecialchars($data['name'] ?? '') ?>" class="<?= isset($errors['name']) ? 'error-field' : '' ?>">
@@ -90,10 +81,15 @@
                 </label>
             </div>
             <br>
-
             <button type="submit">Сохранить</button>
         </form>
-
+		<?php if (!empty($_SESSION['login'])): ?>
+            <div class="logout">
+                <form action="logout.php" method="post">
+                    <button type="submit">Выйти (<?= htmlspecialchars($_SESSION['login']) ?>)</button>
+                </form>
+            </div>
+        <?php endif; ?>
 		<?php if (!empty($messages)): ?>
         	<div class="messages">
 				<?php foreach ($messages as $message): ?>
@@ -101,7 +97,6 @@
 				<?php endforeach; ?>
 			</div>
     	<?php endif; ?>
-
     </div>
 </body>
 </html>
