@@ -17,22 +17,6 @@
     $selectedLanguage = $data['language'] ?? [];
     ?>
 
-    <?php if (!empty($messages)): ?>
-        <div class="messages">
-            <?php foreach ($messages as $message): ?>
-                <div><?= $message ?></div>
-            <?php endforeach; ?>
-        </div>
-		<div class="errors">
-            <p>Пожалуйста, исправьте следующие ошибки:</p>
-            <ul>
-                <?php foreach ($errors as $error): ?>
-                    <li class="error"><?= htmlspecialchars($error) ?></li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
-    <?php endif; ?>
-
     <?php if (!empty($errors)): ?>
         <div class="errors">
             <p>Пожалуйста, исправьте следующие ошибки:</p>
@@ -109,6 +93,15 @@
 
             <button type="submit">Сохранить</button>
         </form>
+
+		<?php if (!empty($messages)): ?>
+        	<div class="messages">
+				<?php foreach ($messages as $message): ?>
+					<div><?= $message ?></div>
+				<?php endforeach; ?>
+			</div>
+    	<?php endif; ?>
+
     </div>
 </body>
 </html>
