@@ -81,7 +81,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             exit();
         }
     } catch (PDOException $e) {
-        die("Ошибка базы данных: " . $e->getMessage());
+        $messages[] = 'Произошла ошибка при подключении к базе данных. Попробуйте позже.';
+        include('login.php');
+        exit();
     }
 }
 ?>
