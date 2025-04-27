@@ -20,28 +20,27 @@ function displayLoginForm($messages) {
     <head>
         <meta charset="UTF-8">
         <title>Вход</title>
-        <link href="./css/style.css" rel="stylesheet">
+        <link href="./css/login.css" rel="stylesheet">
     </head>
     <body>
         <div class="content">
             <h1>Вход</h1>
-            <?php if (!empty($messages)): ?>
+            <form method="POST" action="" id="form">
+                <label for="login">Логин:</label>
+                <input type="text" name="login" id="login" required>
+                <br>
+                <label for="pass">Пароль:</label>
+                <input type="password" name="pass" id="pass" required>
+                <br>
+                <button type="submit">Войти</button>
+            </form>
+			<?php if (!empty($messages)): ?>
                 <div class="errors">
                     <?php foreach ($messages as $message): ?>
                         <div class="error"><?= htmlspecialchars($message) ?></div>
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>
-            
-            <form method="POST" action="">
-                <label for="login">Логин:</label>
-                <input type="text" name="login" id="login" required>
-                
-                <label for="pass">Пароль:</label>
-                <input type="password" name="pass" id="pass" required>
-                
-                <button type="submit">Войти</button>
-            </form>
         </div>
     </body>
     </html>
