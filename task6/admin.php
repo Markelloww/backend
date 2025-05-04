@@ -23,12 +23,12 @@ try {
     $stmt->execute([':login' => $_SERVER['PHP_AUTH_USER']]);
     $admin = $stmt->fetch();
 
-    if (!$admin || !password_verify($_SERVER['PHP_AUTH_PW'], $admin['pass_hash'])) {
-        header('HTTP/1.1 401 Unauthorized');
-        header('WWW-Authenticate: Basic realm="Admin Panel"');
-        echo '<h1>401 Неверные учетные данные</h1>';
-        exit();
-    }
+    if ($_SERVER['PHP_AUTH_USER'] !== 'admin' || $_SERVER['PHP_AUTH_PW'] !== 'admin') {
+		header('HTTP/1.1 401 Unauthorized');
+		header('WWW-Authenticate: Basic realm="Admin Panel"');
+		echo '<h1>401 Неверные учетные данные</h1>';
+		exit();
+	}
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['delete'])) {
