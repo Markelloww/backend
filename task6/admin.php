@@ -32,11 +32,25 @@ try {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['delete'])) {
-            $stmt = $db->prepare("DELETE FROM applications WHERE id = :id");
-            $stmt->execute([':id' => $_POST['delete']]);
-            header("Location: admin.php");
-            exit();
-        }
+			$db->beginTransaction();
+			try {
+				$stmt = $db->prepare("DELETE FROM users WHERE application_id = :id");
+				$stmt->execute([':id' => $_POST['delete']]);
+				
+				$stmt = $db->prepare("DELETE FROM application_languages WHERE application_id = :id");
+				$stmt->execute([':id' => $_POST['delete']]);
+				
+				$stmt = $db->prepare("DELETE FROM applications WHERE id = :id");
+				$stmt->execute([':id' => $_POST['delete']]);
+				
+				$db->commit();
+				header("Location: admin.php");
+				exit();
+			} catch (PDOException $e) {
+				$db->rollBack();
+				die("Ошибка при удалении: " . $e->getMessage());
+			}
+		}
         elseif (isset($_POST['edit'])) {
             $stmt = $db->prepare("SELECT a.*, GROUP_CONCAT(pl.name) as languages 
                                  FROM applications a 
