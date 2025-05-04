@@ -2,6 +2,10 @@
 header('Content-Type: text/html; charset=UTF-8');
 header("X-XSS-Protection: 1; mode=block");
 header("Content-Security-Policy: default-src 'self'; script-src 'self'");
+
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
 ?>
 
 <!DOCTYPE html>
@@ -35,6 +39,7 @@ header("Content-Security-Policy: default-src 'self'; script-src 'self'");
 
     <div class="content">
         <form id="form" method="POST" action="index.php">
+			<input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') ?>">
             <label for="name">ФИО:</label>
             <input type="text" name="name" placeholder="Введите ваши ФИО" value="<?= htmlspecialchars($data['name'] ?? '', ENT_QUOTES, 'UTF-8') ?>" class="<?= isset($errors['name']) ? 'error-field' : '' ?>">
             <br>
@@ -89,14 +94,15 @@ header("Content-Security-Policy: default-src 'self'; script-src 'self'");
             <br>
             <button type="submit">Сохранить</button>
         </form>
-		<?php if (!empty($_SESSION['login'])): ?>
+        <?php if (!empty($_SESSION['login'])): ?>
             <div class="logout">
                 <form action="logout.php" method="post">
+				<input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') ?>">
                     <button type="submit">Выйти (<?= htmlspecialchars($_SESSION['login'], ENT_QUOTES, 'UTF-8') ?>)</button>
                 </form>
             </div>
         <?php endif; ?>
-		<?php if (!empty($messages)): ?>
+        <?php if (!empty($messages)): ?>
         	<div class="messages">
 				<?php foreach ($messages as $message): ?>
 					<div><?= $message ?></div>
