@@ -35,7 +35,8 @@ header("Content-Security-Policy: default-src 'self'; script-src 'self'");
 
     <div class="content">
         <form id="form" method="POST" action="index.php">
-			<input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') ?>">
+			<!-- value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') ?>" -->
+			<input type="hidden" name="csrf_token" value="123">
             <label for="name">ФИО:</label>
             <input type="text" name="name" placeholder="Введите ваши ФИО" value="<?= htmlspecialchars($data['name'] ?? '', ENT_QUOTES, 'UTF-8') ?>" class="<?= isset($errors['name']) ? 'error-field' : '' ?>">
             <br>
