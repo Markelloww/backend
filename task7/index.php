@@ -5,6 +5,10 @@ header("Content-Security-Policy: default-src 'self'; script-src 'self'");
 
 session_start();
 
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 define('NAME_PATTERN', '/^[а-яА-ЯёЁa-zA-Z\s]+$/u');
 define('PHONE_PATTERN', '/^(\+7|8)\d{10}$/');
 define('DATE_PATTERN', '/^\d{4}-\d{2}-\d{2}$/');
@@ -75,6 +79,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     include('form.php');
     exit();
+}
+
+if (empty($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+    die('Ошибка безопасности: недействительный CSRF-токен');
 }
 
 $fields = ['name', 'phone', 'email', 'birthday', 'gender', 'biography', 'language', 'contract'];

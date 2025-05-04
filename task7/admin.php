@@ -154,8 +154,9 @@ try {
         <div class="edit-form">
             <h2>Редактирование пользователя</h2>
             <form method="POST">
-                <input type="hidden" name="id" value="<?= htmlspecialchars($editData['id']) ?>">
-                
+				<input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') ?>">
+
+                <input type="hidden" name="id" value="<?= htmlspecialchars($editData['id'], ENT_QUOTES, 'UTF-8') ?>">
                 <label>ФИО: <input type="text" name="name" value="<?= htmlspecialchars($editData['name'], ENT_QUOTES, 'UTF-8') ?>" required></label><br>
                 <label>Телефон: <input type="text" name="phone" value="<?= htmlspecialchars($editData['phone'], ENT_QUOTES, 'UTF-8') ?>" required></label><br>
                 <label>Email: <input type="email" name="email" value="<?= htmlspecialchars($editData['email'], ENT_QUOTES, 'UTF-8') ?>" required></label><br>
@@ -220,11 +221,13 @@ try {
                     <td><?= htmlspecialchars($app['languages'], ENT_QUOTES, 'UTF-8') ?></td>
                     <td>
                         <form method="POST" style="display: inline;">
-                            <input type="hidden" name="edit" value="<?= $app['id'] ?>">
+							<input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') ?>">
+                            <input type="hidden" name="edit" value="<?= htmlspecialchars($app['id'], ENT_QUOTES, 'UTF-8') ?>">
                             <button type="submit">Редактировать</button>
                         </form>
                         <form method="POST" style="display: inline;" onsubmit="return confirm('Удалить эту запись?');">
-                            <input type="hidden" name="delete" value="<?= $app['id'] ?>">
+							<input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') ?>">
+                            <input type="hidden" name="delete" value="<?= htmlspecialchars($app['id'], ENT_QUOTES, 'UTF-8') ?>">
                             <button type="submit">Удалить</button>
                         </form>
                     </td>
