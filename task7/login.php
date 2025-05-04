@@ -5,6 +5,10 @@ header("Content-Security-Policy: default-src 'self'; script-src 'self'");
 
 session_start();
 
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 $db_user = 'u68594';
 $db_pass = '2729694';
 $db_name = 'u68594';
@@ -29,6 +33,7 @@ function displayLoginForm($messages) {
         <div class="content">
             <h1>Вход</h1>
             <form method="POST" action="" id="form">
+				<input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') ?>">
                 <label for="login">Логин:</label>
                 <input type="text" name="login" id="login" required>
                 <br>
@@ -59,6 +64,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         displayLoginForm($messages);
         exit();
     }
+
+	if (empty($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+		die('Ошибка безопасности: недействительный CSRF-токен');
+	}
 
     try {
         $db = new PDO("mysql:host=localhost;dbname=$db_name", $db_user, $db_pass, [
