@@ -162,9 +162,12 @@ try {
                     </select>
                 </label><br>
                 
-                <label>Биография: <textarea name="biography"><?= htmlspecialchars($editData['biography']) ?></textarea></label><br>
+                <label>Биография: 
+                <br>
+                <textarea name="biography"><?= htmlspecialchars($editData['biography']) ?></textarea></label><br>
                 
                 <label>Языки программирования: 
+                    <br>
                     <select name="language[]" multiple required>
                         <?php 
                         $languages = ['Pascal', 'C', 'C++', 'JavaScript', 'PHP', 'Python', 'Java', 'Haskel', 'Clojure', 'Prolog', 'Scala', 'Go'];
