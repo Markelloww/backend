@@ -1,4 +1,5 @@
 <?php
+session_start();
 header('Content-Type: text/html; charset=UTF-8');
 header("X-XSS-Protection: 1; mode=block");
 header("Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'");
@@ -11,11 +12,37 @@ if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
-if (empty($_SERVER['PHP_AUTH_USER']) || empty($_SERVER['PHP_AUTH_PW'])) {
-    header('HTTP/1.1 401 Unauthorized');
-    header('WWW-Authenticate: Basic realm="Admin Panel"');
-    echo '<h1>401 Требуется авторизация</h1>';
-    exit();
+if (!isset($_SESSION['admin_auth']) || $_SESSION['admin_auth'] !== true) {
+    if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])) {
+        header('WWW-Authenticate: Basic realm="Restricted Area"');
+        header('HTTP/1.0 401 Unauthorized');
+        echo '<h1>Требуется аутентификация.</h1>';
+        exit();
+    }
+
+    try {
+        $db = new PDO("mysql:host=localhost;dbname=$db_user", $db_name, $db_pass, [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+        ]);
+
+        $stmt = $db->prepare("SELECT * FROM admin_users WHERE login = :login");
+        $stmt->execute([':login' => $_SERVER['PHP_AUTH_USER']]);
+        $admin = $stmt->fetch();
+
+        if (!$admin || !password_verify($_SERVER['PHP_AUTH_PW'], $admin['password'])) {
+            header('WWW-Authenticate: Basic realm="Restricted Area"');
+            header('HTTP/1.0 401 Unauthorized');
+            echo 'Неверные учетные данные.';
+            exit();
+        }
+
+        $_SESSION['admin_auth'] = true;
+        $_SESSION['admin_login'] = $_SERVER['PHP_AUTH_USER'];
+        
+    } catch (PDOException $e) {
+        die("Ошибка базы данных: " . $e->getMessage());
+    }
 }
 
 try {
@@ -24,17 +51,6 @@ try {
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4'
     ]);
-
-    $stmt = $db->prepare("SELECT * FROM admin_users WHERE login = :login");
-    $stmt->execute([':login' => $_SERVER['PHP_AUTH_USER']]);
-    $admin = $stmt->fetch();
-
-    if ($_SERVER['PHP_AUTH_USER'] !== 'admin' || $_SERVER['PHP_AUTH_PW'] !== 'admin') {
-		header('HTTP/1.1 401 Unauthorized');
-		header('WWW-Authenticate: Basic realm="Admin Panel"');
-		echo '<h1>401 Неверные учетные данные</h1>';
-		exit();
-	}
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['delete'])) {
@@ -137,15 +153,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <title>Админ-панель</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        tr:nth-child(even) { background-color: #f9f9f9; }
-        .edit-form { background: #f5f5f5; padding: 15px; margin: 15px 0; border: 1px solid #ddd; }
-        .stats { margin-top: 30px; }
-    </style>
+	<link href="./css/admin.css" rel="stylesheet">
 </head>
 <body>
     <h1>Админ-панель</h1>

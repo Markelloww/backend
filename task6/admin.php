@@ -1,15 +1,42 @@
 <?php
+session_start();
 header('Content-Type: text/html; charset=UTF-8');
 
 $db_user = 'u68594';
 $db_pass = '2729694';
 $db_name = 'u68594';
 
-if (empty($_SERVER['PHP_AUTH_USER']) || empty($_SERVER['PHP_AUTH_PW'])) {
-    header('HTTP/1.1 401 Unauthorized');
-    header('WWW-Authenticate: Basic realm="Admin Panel"');
-    echo '<h1>401 Требуется авторизация</h1>';
-    exit();
+if (!isset($_SESSION['admin_auth']) || $_SESSION['admin_auth'] !== true) {
+    if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])) {
+        header('WWW-Authenticate: Basic realm="Restricted Area"');
+        header('HTTP/1.0 401 Unauthorized');
+        echo '<h1>Требуется аутентификация.</h1>';
+        exit();
+    }
+
+    try {
+        $db = new PDO("mysql:host=localhost;dbname=$db_user", $db_name, $db_pass, [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+        ]);
+
+        $stmt = $db->prepare("SELECT * FROM admin_users WHERE login = :login");
+        $stmt->execute([':login' => $_SERVER['PHP_AUTH_USER']]);
+        $admin = $stmt->fetch();
+
+        if (!$admin || !password_verify($_SERVER['PHP_AUTH_PW'], $admin['password'])) {
+            header('WWW-Authenticate: Basic realm="Restricted Area"');
+            header('HTTP/1.0 401 Unauthorized');
+            echo '<h1>Неверные учетные данные.</h1>';
+            exit();
+        }
+
+        $_SESSION['admin_auth'] = true;
+        $_SESSION['admin_login'] = $_SERVER['PHP_AUTH_USER'];
+        
+    } catch (PDOException $e) {
+        die("Ошибка базы данных: " . $e->getMessage());
+    }
 }
 
 try {
@@ -19,37 +46,21 @@ try {
         PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4'
     ]);
 
-    $stmt = $db->prepare("SELECT * FROM admin_users WHERE login = :login");
-    $stmt->execute([':login' => $_SERVER['PHP_AUTH_USER']]);
-    $admin = $stmt->fetch();
-
-    if ($_SERVER['PHP_AUTH_USER'] !== 'admin' || $_SERVER['PHP_AUTH_PW'] !== 'admin') {
-		header('HTTP/1.1 401 Unauthorized');
-		header('WWW-Authenticate: Basic realm="Admin Panel"');
-		echo '<h1>401 Неверные учетные данные</h1>';
-		exit();
-	}
-
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['delete'])) {
 			$db->beginTransaction();
-			try {
-				$stmt = $db->prepare("DELETE FROM users WHERE application_id = :id");
-				$stmt->execute([':id' => $_POST['delete']]);
+			$stmt = $db->prepare("DELETE FROM users WHERE application_id = :id");
+			$stmt->execute([':id' => $_POST['delete']]);
 				
-				$stmt = $db->prepare("DELETE FROM application_languages WHERE application_id = :id");
-				$stmt->execute([':id' => $_POST['delete']]);
+			$stmt = $db->prepare("DELETE FROM application_languages WHERE application_id = :id");
+			$stmt->execute([':id' => $_POST['delete']]);
 				
-				$stmt = $db->prepare("DELETE FROM applications WHERE id = :id");
-				$stmt->execute([':id' => $_POST['delete']]);
+			$stmt = $db->prepare("DELETE FROM applications WHERE id = :id");
+			$stmt->execute([':id' => $_POST['delete']]);
 				
-				$db->commit();
-				header("Location: admin.php");
-				exit();
-			} catch (PDOException $e) {
-				$db->rollBack();
-				die("Ошибка при удалении: " . $e->getMessage());
-			}
+			$db->commit();
+			header("Location: admin.php");
+			exit();
 		}
         elseif (isset($_POST['edit'])) {
             $stmt = $db->prepare("SELECT a.*, GROUP_CONCAT(pl.name) as languages 
@@ -131,15 +142,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <title>Админ-панель</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        tr:nth-child(even) { background-color: #f9f9f9; }
-        .edit-form { background: #f5f5f5; padding: 15px; margin: 15px 0; border: 1px solid #ddd; }
-        .stats { margin-top: 30px; }
-    </style>
+	<link href="./css/admin.css" rel="stylesheet">
 </head>
 <body>
     <h1>Админ-панель</h1>
