@@ -2,6 +2,10 @@
 header('Content-Type: text/html; charset=UTF-8');
 session_start();
 
+$db_user = 'u68594';
+$db_pass = '2729694';
+$db_name = 'u68594';
+
 try {
     $db = new PDO("mysql:host=localhost;dbname=$db_name", $db_user, $db_pass, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
