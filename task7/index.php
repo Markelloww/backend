@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 ];
             }
         } catch (PDOException $e) {
-            $messages[] = 'Ошибка загрузки данных: ' . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8');
+            $messages[] = 'Ошибка загрузки данных';
         }
     } elseif (isset($_COOKIE['savedData'])) {
         $forma = json_decode($_COOKIE['savedData'], true);
@@ -227,6 +227,6 @@ try {
     exit();
 } catch (PDOException $e) {
     $db->rollBack();
-    die("Ошибка базы данных: " . $e->getMessage());
+    die('Ошибка базы данных!');
 }
 ?>

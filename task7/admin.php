@@ -49,7 +49,7 @@ if (!isset($_SESSION['admin_auth']) || $_SESSION['admin_auth'] !== true) {
         $_SESSION['admin_login'] = $_SERVER['PHP_AUTH_USER'];
         
     } catch (PDOException $e) {
-        die("Ошибка базы данных: " . $e->getMessage());
+        die('Ошибка базы данных!');
     }
 }
 
@@ -78,7 +78,7 @@ try {
 				exit();
 			} catch (PDOException $e) {
 				$db->rollBack();
-				die("Ошибка при удалении: " . $e->getMessage());
+				die('Ошибка при удалении!');
 			}
 		}
         elseif (isset($_POST['edit'])) {
