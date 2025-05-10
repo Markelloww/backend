@@ -2,6 +2,12 @@
 header('Content-Type: text/html; charset=UTF-8');
 header("X-XSS-Protection: 1; mode=block");
 header("Content-Security-Policy: default-src 'self'; script-src 'self'");
+header_remove('X-Powered-By');
+header('Server: Unknown');
+
+ini_set('display_errors', '0');
+ini_set('display_startup_errors', '0');
+error_reporting(0);
 
 session_start();
 
@@ -9,9 +15,10 @@ if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
-$db_user = 'u68594';
-$db_pass = '2729694';
-$db_name = 'u68594';
+$config = parse_ini_file('./config.ini');
+$db_name = $config['db_user'];
+$db_user = $config['db_user'];
+$db_pass = $config['db_pass'];
 
 $messages = [];
 
