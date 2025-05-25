@@ -1,8 +1,6 @@
 <?php
-
 function front_get($request) {
-	$c = ['test' => 'ok'];
-	return theme('home', $c);
+	return theme('home');
 }
 
 // function front_post($request) {

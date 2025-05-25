@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="/final/static/css/style.css">
+	<link rel="stylesheet" href="./theme/css/style.css">
 	<script src="https://kit.fontawesome.com/13c267004c.js" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
@@ -14,13 +14,13 @@
 <body>
 	<div class="header">
 		<div class="video-container">
-			<video src="/final//static/video/background_video.mp4" autoplay loop muted preload="auto"></video>
+			<video src="./theme/video/background_video.mp4" autoplay loop muted preload="auto"></video>
 			<div class="blackout"></div>
 		</div>
 		<div class="menu-container">
 			<div class="menu">
 				<div class="logo">
-					<img src="/final//static/img/header/drupal-coder.svg" alt="">
+					<img src="./theme/img/header/drupal-coder.svg" alt="">
 				</div>
 				<ul>
 					<li><a href="#support">Поддержка сайтов</a></li>

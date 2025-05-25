@@ -1,7 +1,11 @@
 <?php
 define('DISPLAY_ERRORS', 1);
-define('INCLUDE_PATH', './scripts' . PATH_SEPARATOR . './modules');
-
+define('INCLUDE_PATH', 
+    __DIR__ . '/static' . PATH_SEPARATOR .
+    __DIR__ . '/scripts' . PATH_SEPARATOR .
+    __DIR__ . '/modules'
+);
+set_include_path(INCLUDE_PATH);
 
 $config = parse_ini_file('./config.ini');
 
