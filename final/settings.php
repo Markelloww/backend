@@ -14,7 +14,7 @@ $conf = array(
 	'date_format' => 'Y.m.d',
 	'date_format_2' => 'Y.m.d H:i',
 	'date_format_3' => 'd.m.Y',
-	'basedir' => '/final/',
+	'basedir' => '/backend/final/',
 	'login' => 'admin',
 	'password' => '123',
 	'admin_mail' => 'sin@kubsu.ru',
@@ -23,10 +23,6 @@ $conf = array(
   'db_user' => $config['db_user'],
   'db_psw' => $config['db_pass']
 );
-
-global $db;
-$db = new PDO('mysql:host=' . conf('db_host') . ';dbname=' . conf('db_name'), conf('db_user'), conf('db_psw'),
-  array(PDO::MYSQL_ATTR_FOUND_ROWS => true, PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
 
 $urlconf = array(
 	'' => array('module' => 'front'), // гл. страница
