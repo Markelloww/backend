@@ -77,7 +77,7 @@
 						<h2 class="main-text" id="main-text-big">
 							#1
 						</h2>
-						<img src="/final//static/img/header/cup.png" alt="">
+						<img src="./theme//img/header/cup.png" alt="">
 					</div>
 					<p class="additional-text">
 						Drupal-разработчик<br>в России по версии Рейтинга Рунета
@@ -138,35 +138,35 @@
 			</div>
 			<div class="services_body">
 				<div class="services_elements">
-					<img src="/final//static/img/service/competency-1.svg" height="100" width="100" alt="">
+					<img src="./theme/img/service/competency-1.svg" height="100" width="100" alt="">
 					<p>Добавление<br>информации на сайт,<br>создание новых<br>разделов</p>
 				</div>
 				<div class="services_elements">
-					<img src="/final//static/img/service/competency-2.svg" height="100" width="100" alt="">
+					<img src="./theme/img/service/competency-2.svg" height="100" width="100" alt="">
 					<p>Разработка<br>и оптимизация<br>модулей сайта</p>
 				</div>
 				<div class="services_elements">
-					<img src="/final//static/img/service/competency-3.svg" height="100" width="100" alt="">
+					<img src="/final/img/service/competency-3.svg" height="100" width="100" alt="">
 					<p>Интеграция с CRM,<br>1С, платёжными<br>системами, любыми<br>веб-сервисами </p>
 				</div>
 				<div class="services_elements">
-					<img src="/final//static/img/service/competency-4.svg" height="100" width="100" alt="">
+					<img src="/final/img/service/competency-4.svg" height="100" width="100" alt="">
 					<p>Любые доработки<br>функционала<br>и дизайна</p>
 				</div>
 				<div class="services_elements">
-					<img src="/final//static/img/service/competency-5.svg" height="100" width="100" alt="">
+					<img src="./theme/img/service/competency-5.svg" height="100" width="100" alt="">
 					<p>Аудит и мониторинг<br>безопасности Drupal<br>сайтов</p>
 				</div>
 				<div class="services_elements">
-					<img src="/final//static/img/service/competency-6.svg" height="100" width="100" alt="">
+					<img src="./theme/img/service/competency-6.svg" height="100" width="100" alt="">
 					<p>Миграция, импорт<br>контента и апгрейд<br>Drupal</p>
 				</div>
 				<div class="services_elements">
-					<img src="/final//static/img/service/competency-7.svg" height="100" width="100" alt="">
+					<img src="./theme/img/service/competency-7.svg" height="100" width="100" alt="">
 					<p>Оптимизация<br>и ускорение<br>Drupal-сайтов</p>
 				</div>
 				<div class="services_elements">
-					<img src="/final//static/./static/img/service/competency-8.svg" height="100" width="100" alt="">
+					<img src="./theme/./static/img/service/competency-8.svg" height="100" width="100" alt="">
 					<p>Веб-маркетинг,<br>консультации<br>и работы по SEO</p>
 				</div>
 			</div>
@@ -189,7 +189,7 @@
 							никогда<br>не теряются.
 						</p>
 					</div>
-					<div class="support-card-img"><img src="/final//static/img/support/support1.svg" alt=""></div>
+					<div class="support-card-img"><img src="./theme/img/support/support1.svg" alt=""></div>
 				</div>
 				<div class="support-card">
 					<div class="support-card-number"><span>02.</span></div>
@@ -202,7 +202,7 @@
 							через<br>браузер.
 						</p>
 					</div>
-					<div class="support-card-img"><img src="/final//static/img/support/support2.svg" alt=""></div>
+					<div class="support-card-img"><img src="./theme/img/support/support2.svg" alt=""></div>
 				</div>
 				<div class="support-card">
 					<div class="support-card-number"><span>03.</span></div>
@@ -214,7 +214,7 @@
 							Возможность организации<br>расширенной<br>техподдержки с 6:00<br>до 22:00 без выходных.
 						</p>
 					</div>
-					<div class="support-card-img"><img src="/final//static/img/support/support3.svg" alt=""></div>
+					<div class="support-card-img"><img src="./theme/img/support/support3.svg" alt=""></div>
 				</div>
 				<div class="support-card">
 					<div class="support-card-number"><span>04.</span></div>
@@ -227,7 +227,7 @@
 							готов<br>ответить на любые<br>вопросы.
 						</p>
 					</div>
-					<div class="support-card-img"><img src="/final//static/img/support/support4.svg" alt=""></div>
+					<div class="support-card-img"><img src="./theme/img/support/support4.svg" alt=""></div>
 				</div>
 				<div class="support-card">
 					<div class="support-card-number"><span>05.</span></div>
@@ -240,7 +240,7 @@
 							Яндекс.Деньги,<br>Paypal.
 						</p>
 					</div>
-					<div class="support-card-img"><img src="/final//static/img/support/support5.svg" alt=""></div>
+					<div class="support-card-img"><img src="./theme/img/support/support5.svg" alt=""></div>
 				</div>
 				<div class="support-card">
 					<div class="support-card-number"><span>06.</span></div>
@@ -252,7 +252,7 @@
 							Работа в рамках<br>соглашений<br>о конфиденциальности<br>и об уровне качества<br>работ.
 						</p>
 					</div>
-					<div class="support-card-img"><img src="/final//static/img/support/support6.svg" alt=""></div>
+					<div class="support-card-img"><img src="./theme/img/support/support6.svg" alt=""></div>
 				</div>
 				<div class="support-card">
 					<div class="support-card-number"><span>07.</span></div>
@@ -264,7 +264,7 @@
 							Надежные штатные<br>специалисты, никаких<br>фрилансеров.
 						</p>
 					</div>
-					<div class="support-card-img"><img src="/final//static/img/support/support7.svg" alt=""></div>
+					<div class="support-card-img"><img src="./theme/img/support/support7.svg" alt=""></div>
 				</div>
 				<div class="support-card">
 					<div class="support-card-number"><span>08.</span></div>
@@ -276,7 +276,7 @@
 							Консультации по<br>телефону, скайпу,<br>в месенджерах.
 						</p>
 					</div>
-					<div class="support-card-img"><img src="/final//static/img/support/support8.svg" alt=""></div>
+					<div class="support-card-img"><img src="./theme/img/support/support8.svg" alt=""></div>
 				</div>
 			</div>
 		</div>
@@ -284,7 +284,7 @@
 			<div id="bg-exp">
 			</div>
 			<div id="laptop-img-outter">
-				<img src="/final//static/img/experience/laptop.png" alt="">
+				<img src="./theme/img/experience/laptop.png" alt="">
 			</div>
 			<div id="company-experience-content">
 				<div id="comp-exp-header">
@@ -423,12 +423,12 @@
 		<div id="latest-cases-cards">
 			<div class="case type1 separate-thumbnail">
 				<div class="case-photo">
-					<img src="/final//static/img/case/case2.jpg" height="180" width="180" alt="">
+					<img src="./theme/img/case/case2.jpg" height="180" width="180" alt="">
 				</div>
 			</div>
 			<div class="case type2">
 				<div class="case-photo">
-					<img src="/final//static/img/case/case3.jpg" height="200" width="100" alt="">
+					<img src="./theme/img/case/case3.jpg" height="200" width="100" alt="">
 				</div>
 				<div class="case-content">
 					<div class="case-content-inner">
@@ -440,7 +440,7 @@
 			</div>
 			<div class="case type1">
 				<div class="case-photo">
-					<img src="/final//static/img/case/case1.png" height="200" width="100" alt="">
+					<img src="./theme/img/case/case1.png" height="200" width="100" alt="">
 				</div>
 				<div class="case-content">
 					<div class="case-content-inner">
@@ -455,7 +455,7 @@
 			</div>
 			<div class="case type1">
 				<div class="case-photo">
-					<img src="/final//static/img/case/case5.png" height="200" width="100" alt="">
+					<img src="./theme/img/case/case5.png" height="200" width="100" alt="">
 				</div>
 				<div class="case-content">
 					<div class="case-content-inner">
@@ -470,7 +470,7 @@
 			</div>
 			<div class="case type1 separate-thumbnail">
 				<div class="case-photo">
-					<img src="/final//static/img/case/case4.png" height="200" width="100" alt="">
+					<img src="./theme/img/case/case4.png" height="200" width="100" alt="">
 				</div>
 				<div class="case-content">
 					<div class="case-content-inner">
@@ -479,7 +479,7 @@
 			</div>
 			<div class="case type2">
 				<div class="case-photo">
-					<img src="/final//static/img/case/case3.jpg" height="200" width="100" alt="">
+					<img src="./theme/img/case/case3.jpg" height="200" width="100" alt="">
 				</div>
 				<div class="case-content">
 					<div class="case-content-inner">
@@ -491,7 +491,7 @@
 			</div>
 			<div class="case type1">
 				<div class="case-photo">
-					<img src="/final//static/img/case/case1.png" height="200" width="100" alt="">
+					<img src="./theme/img/case/case1.png" height="200" width="100" alt="">
 				</div>
 				<div class="case-content">
 					<div class="case-content-inner">
@@ -515,32 +515,32 @@
 		</div>
 		<div class="team-container">
 			<div class="human">
-				<img src="/final//static/img/worker/IMG_2472_0.jpg" height="180" width="180" alt="">
+				<img src="./theme/img/worker/IMG_2472_0.jpg" height="180" width="180" alt="">
 				<h2>Сергей</h2>
 				<p>руководитель поддержки,<br>планирование задач</p>
 			</div>
 			<div class="human">
-				<img src="/final//static/img/worker/IMG_2474_1.jpg" height="180" width="180" alt="">
+				<img src="./theme/img/worker/IMG_2474_1.jpg" height="180" width="180" alt="">
 				<h2>Роман</h2>
 				<p>инфраструктура веб-проектов</p>
 			</div>
 			<div class="human">
-				<img src="/final//static/img/worker/IMG_2522_0.jpg" height="180" width="180" alt="">
+				<img src="./theme/img/worker/IMG_2522_0.jpg" height="180" width="180" alt="">
 				<h2>Ирина</h2>
 				<p>менеджер по работе<br>с клиентами, организация<br>оказания услуг</p>
 			</div>
 			<div class="human">
-				<img src="/final//static/img/worker/IMG_2522_0.jpg" height="180" width="180" alt="">
+				<img src="./theme/img/worker/IMG_2522_0.jpg" height="180" width="180" alt="">
 				<h2>Даша</h2>
 				<p>SEO, веб-маркетинг</p>
 			</div>
 			<div class="human">
-				<img src="/final//static/img/worker/IMG_9971_16.jpg" height="180" width="180" alt="">
+				<img src="./theme/img/worker/IMG_9971_16.jpg" height="180" width="180" alt="">
 				<h2>Саша</h2>
 				<p>технический директор</p>
 			</div>
 			<div class="human">
-				<img src="/final//static/img/worker/IMG_2474_1.jpg" height="180" width="180" alt="">
+				<img src="./theme/img/worker/IMG_2474_1.jpg" height="180" width="180" alt="">
 				<h2>Вадим</h2>
 				<p>UX/UI дизайн</p>
 			</div>
@@ -548,7 +548,7 @@
 	</div>
 	<div id="reviews" class="reviews">
 		<div class="reviews-img-container">
-			<img src="/final//static/img/right-quote-sign.svg" alt="">
+			<img src="./theme/img/right-quote-sign.svg" alt="">
 		</div>
 		<h2>Отзывы</h2>
 		<div class="bg-rectangle">
@@ -557,7 +557,7 @@
 					<ul class="splide__list">
 						<li class="splide__slide">
 							<div class="review-img-container">
-								<img src="/final//static/img/company-logo/cableman_ru.png" alt="">
+								<img src="./theme/img/company-logo/cableman_ru.png" alt="">
 							</div>
 							<div class="review-text-container">
 								<p class="review-text">
@@ -574,7 +574,7 @@
 						</li>
 						<li class="splide__slide">
 							<div class="review-img-container">
-								<img src="/final//static/img/company-logo/farbors_ru.jpg" alt="">
+								<img src="./theme/img/company-logo/farbors_ru.jpg" alt="">
 							</div>
 							<div class="review-text-container">
 								<p class="review-text">
@@ -591,7 +591,7 @@
 						</li>
 						<li class="splide__slide">
 							<div class="review-img-container">
-								<img src="/final//static/img/company-logo/logo-estee.png" alt="">
+								<img src="./theme/img/company-logo/logo-estee.png" alt="">
 							</div>
 							<div class="review-text-container">
 								<p class="review-text">
@@ -608,7 +608,7 @@
 						</li>
 						<li class="splide__slide">
 							<div class="review-img-container">
-								<img src="/final//static/img/company-logo/logo.png" alt="">
+								<img src="./theme/img/company-logo/logo.png" alt="">
 							</div>
 							<div class="review-text-container">
 								<p class="review-text">
@@ -625,7 +625,7 @@
 						</li>
 						<li class="splide__slide">
 							<div class="review-img-container">
-								<img src="/final//static/img/company-logo/logo_0.png" alt="">
+								<img src="./theme/img/company-logo/logo_0.png" alt="">
 							</div>
 							<div class="review-text-container">
 								<p class="review-text">
@@ -642,7 +642,7 @@
 						</li>
 						<li class="splide__slide">
 							<div class="review-img-container">
-								<img src="/final//static/img/company-logo/logo_2.png" alt="">
+								<img src="./theme/img/company-logo/logo_2.png" alt="">
 							</div>
 							<div class="review-text-container">
 								<p class="review-text">
@@ -659,7 +659,7 @@
 						</li>
 						<li class="splide__slide">
 							<div class="review-img-container">
-								<img src="/final//static/img/company-logo/lpcma_rus_v4.jpg" alt="">
+								<img src="./theme/img/company-logo/lpcma_rus_v4.jpg" alt="">
 							</div>
 							<div class="review-text-container">
 								<p class="review-text">
@@ -675,7 +675,7 @@
 						</li>
 						<li class="splide__slide">
 							<div class="review-img-container">
-								<img src="/final//static/img/company-logo/nashagazeta_ch.png" alt="">
+								<img src="./theme/img/company-logo/nashagazeta_ch.png" alt="">
 							</div>
 							<div class="review-text-container">
 								<p class="review-text">
@@ -742,7 +742,7 @@
 		<p>Проект ООО «Инитлаб», Краснодар, Россия. (Выполнили Попов Марк и Алина Гаевская)</p>
 		<p>Drupal является зарегистрированной торговой маркой Dries Buytaert.</p>
 	</div>
-	<script src="/final//static/js/index.js"></script>
+	<script src="./theme/js/index.js"></script>
 </body>
 
 </html>
