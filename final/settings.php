@@ -2,6 +2,9 @@
 define('DISPLAY_ERRORS', 1);
 define('INCLUDE_PATH', './scripts' . PATH_SEPARATOR . './modules');
 
+
+$config = parse_ini_file('./config.ini');
+
 $conf = array(
 	'sitename' => 'Final project 8',
 	'theme' => './theme',
@@ -15,7 +18,15 @@ $conf = array(
 	'login' => 'admin',
 	'password' => '123',
 	'admin_mail' => 'sin@kubsu.ru',
+  'db_host' => 'localhost',
+  'db_name' => $config['db_user'],
+  'db_user' => $config['db_user'],
+  'db_psw' => $config['db_pass']
 );
+
+global $db;
+$db = new PDO('mysql:host=' . conf('db_host') . ';dbname=' . conf('db_name'), conf('db_user'), conf('db_psw'),
+  array(PDO::MYSQL_ATTR_FOUND_ROWS => true, PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
 
 $urlconf = array(
 	'' => array('module' => 'front'), // гл. страница

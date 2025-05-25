@@ -1,19 +1,30 @@
 <?php
 
-global $db;
-$db = new PDO('mysql:host=' . conf('db_host') . ';dbname=' . conf('db_name'), conf('db_user'), conf('db_psw'),
-  array(PDO::MYSQL_ATTR_FOUND_ROWS => true, PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
+try {
+  global $db;
+  $db = new PDO(
+    'mysql:host=' . conf('db_host') . ';dbname=' . conf('db_name'),
+    conf('db_user'),
+    conf('db_psw'),
+    array(PDO::MYSQL_ATTR_FOUND_ROWS => true, PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8')
+  );
+} catch (PDOException $e) {
+  die("Ошибка БД!");
+}
 
-function db_row($stmt) {
+function db_row($stmt)
+{
   return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-function db_error() {
+function db_error()
+{
   global $db;
   return $db->errorInfo();
 }
 
-function db_query($query) {
+function db_query($query)
+{
   global $db;
   $q = $db->prepare($query);
   $args = func_get_args();
@@ -23,8 +34,7 @@ function db_query($query) {
     while ($row = db_row($res)) {
       if (isset($row['id']) && !isset($r[$row['id']])) {
         $r[$row['id']] = $row;
-      }
-      else {
+      } else {
         $r[] = $row;
       }
     }
@@ -32,7 +42,8 @@ function db_query($query) {
   return $r;
 }
 
-function db_result($query) {
+function db_result($query)
+{
   global $db;
   $q = $db->prepare($query);
   $args = func_get_args();
@@ -41,17 +52,16 @@ function db_result($query) {
   if ($res) {
     if ($row = db_row($res)) {
       return $row[0];
-    }
-    else {
+    } else {
       return FALSE;
     }
-  }
-  else {
+  } else {
     return FALSE;
   }
 }
 
-function db_command($query) {
+function db_command($query)
+{
   global $db;
   $q = $db->prepare($query);
   $args = func_get_args();
@@ -59,25 +69,27 @@ function db_command($query) {
   return $res = $q->execute($args);
 }
 
-function db_insert_id() {
+function db_insert_id()
+{
   global $db;
   return $db->lastInsertId();
 }
 
-function db_get($name, $default = FALSE) {
+function db_get($name, $default = FALSE)
+{
   if (strlen($name) == 0) {
     return $default;
   }
   $value = db_result("SELECT value FROM variable WHERE name = ?", $name);
   if ($value === FALSE) {
     return $default;
-  }
-  else {
+  } else {
     return $value;
   }
 }
 
-function db_set($name, $value) {
+function db_set($name, $value)
+{
   if (strlen($name) == 0) {
     return;
   }
@@ -86,20 +98,22 @@ function db_set($name, $value) {
   if ($v === FALSE) {
     $q = "INSERT INTO variable VALUES (?, ?)";
     return db_command($q, $name, $value) > 0;
-  }
-  else {
+  } else {
     $q = "UPDATE variable SET value = ? WHERE name = ?";
     return db_command($q, $value, $name) > 0;
   }
 }
 
-function db_sort_sql() {
+function db_sort_sql()
+{
 }
 
-function db_pager_query() {
+function db_pager_query()
+{
 }
 
-function db_array() {
+function db_array()
+{
   $args = func_get_args();
   $key = array_shift($args);
   $query = array_shift($args);
@@ -110,8 +124,7 @@ function db_array() {
     while ($row = db_row($res)) {
       if (!empty($key) && isset($row[$key]) && !isset($r[$row[$key]])) {
         $r[$row[$key]] = $row;
-      }
-      else {
+      } else {
         $r[] = $row;
       }
     }

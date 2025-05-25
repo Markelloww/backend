@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Initlab framework 2.0, учебная версия.
- * (с) Сергей Синица 2007-2020.
- * (с) "КубГУ", 2013.
- */
-
 // Диспатчер. Делает запрос $request в соответствии со структурой $urlconf.
 function init($request = array(), $urlconf = array())
 {
