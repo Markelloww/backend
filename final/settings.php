@@ -1,9 +1,10 @@
 <?php
 define('DISPLAY_ERRORS', 1);
-define('INCLUDE_PATH', 
-    __DIR__ . '/static' . PATH_SEPARATOR .
-    __DIR__ . '/scripts' . PATH_SEPARATOR .
-    __DIR__ . '/modules'
+define(
+	'INCLUDE_PATH',
+	__DIR__ . '/static' . PATH_SEPARATOR .
+	__DIR__ . '/scripts' . PATH_SEPARATOR .
+	__DIR__ . '/modules'
 );
 set_include_path(INCLUDE_PATH);
 
@@ -22,10 +23,10 @@ $conf = array(
 	'login' => 'admin',
 	'password' => '123',
 	'admin_mail' => 'sin@kubsu.ru',
-  'db_host' => 'localhost',
-  'db_name' => $config['db_user'],
-  'db_user' => $config['db_user'],
-  'db_psw' => $config['db_pass']
+	'db_host' => 'localhost',
+	'db_name' => $config['db_user'],
+	'db_user' => $config['db_user'],
+	'db_psw' => $config['db_pass']
 );
 
 $urlconf = array(

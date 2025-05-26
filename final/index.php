@@ -8,6 +8,7 @@ ini_set('display_errors', DISPLAY_ERRORS);
 //ini_set("mysql.trace_mode","On");
 ini_set('include_path', INCLUDE_PATH);
 include('./scripts/init.php');
+
 $request = array(
 	'url' => isset($_GET['q']) ? $_GET['q'] : '',
 	'method' => isset($_POST['method']) && in_array($_POST['method'], array('get', 'post', 'put', 'delete')) ? $_POST['method'] : $_SERVER['REQUEST_METHOD'],
