@@ -146,11 +146,11 @@
 					<p>Разработка<br>и оптимизация<br>модулей сайта</p>
 				</div>
 				<div class="services_elements">
-					<img src="/final/img/service/competency-3.svg" height="100" width="100" alt="">
+					<img src="./theme/img/service/competency-3.svg" height="100" width="100" alt="">
 					<p>Интеграция с CRM,<br>1С, платёжными<br>системами, любыми<br>веб-сервисами </p>
 				</div>
 				<div class="services_elements">
-					<img src="/final/img/service/competency-4.svg" height="100" width="100" alt="">
+					<img src="./theme/img/service/competency-4.svg" height="100" width="100" alt="">
 					<p>Любые доработки<br>функционала<br>и дизайна</p>
 				</div>
 				<div class="services_elements">
@@ -166,7 +166,7 @@
 					<p>Оптимизация<br>и ускорение<br>Drupal-сайтов</p>
 				</div>
 				<div class="services_elements">
-					<img src="./theme/./static/img/service/competency-8.svg" height="100" width="100" alt="">
+					<img src="./theme/img/service/competency-8.svg" height="100" width="100" alt="">
 					<p>Веб-маркетинг,<br>консультации<br>и работы по SEO</p>
 				</div>
 			</div>
