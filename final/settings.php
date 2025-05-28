@@ -1,74 +1,68 @@
 <?php
 define('DISPLAY_ERRORS', 1);
 define(
-	'INCLUDE_PATH',
-	__DIR__ . '/static' . PATH_SEPARATOR .
-	__DIR__ . '/scripts' . PATH_SEPARATOR .
-	__DIR__ . '/modules'
+  'INCLUDE_PATH',
+  __DIR__ . '/static' . PATH_SEPARATOR .
+  __DIR__ . '/scripts' . PATH_SEPARATOR .
+  __DIR__ . '/modules'
 );
 set_include_path(INCLUDE_PATH);
 
 $config = parse_ini_file('./config.ini');
 
 $conf = array(
-	'sitename' => 'Final project 8',
-	'theme' => './theme',
-	'charset' => 'UTF-8',
-	'clean_urls' => TRUE,
-	'display_errors' => 1,
-	'date_format' => 'Y.m.d',
-	'date_format_2' => 'Y.m.d H:i',
-	'date_format_3' => 'd.m.Y',
-	'basedir' => '/backend/final/',
-	'login' => 'admin',
-	'password' => '123',
-	'admin_mail' => 'sin@kubsu.ru',
-	'db_host' => 'localhost',
-	'db_name' => $config['db_user'],
-	'db_user' => $config['db_user'],
-	'db_psw' => $config['db_pass']
+  'sitename' => 'Final project 8',
+  'theme' => './theme',
+  'charset' => 'UTF-8',
+  'clean_urls' => TRUE,
+  'display_errors' => 1,
+  'date_format' => 'Y.m.d',
+  'date_format_2' => 'Y.m.d H:i',
+  'date_format_3' => 'd.m.Y',
+  'basedir' => '/final/',
+  'login' => 'admin',
+  'password' => '123',
+  'admin_mail' => 'sin@kubsu.ru',
+  'db_host' => 'localhost',
+  'db_name' => $config['db_user'],
+  'db_user' => $config['db_user'],
+  'db_psw' => $config['db_pass']
 );
 
-$urlconf = array(
-	'' => array('module' => 'front'), // гл. страница
-//   '/^admin$/' => array('module' => 'admin', 'auth' => 'auth_basic'),
-//   '/^admin\/(\d+)$/' => array('module' => 'admin', 'auth' => 'auth_basic'),
-/*  '/^order\/(\d+)$/' => array('module' => 'order', 'auth' => 'auth_db_basic'),
-  '/^order\/(\d+)\/add$/' => array('module' => 'order_add', 'auth' => 'auth_db_basic'),
-  '/^order\/(\d+)\/add\/(\d+)$/' => array('module' => 'order_add', 'auth' => 'auth_db_basic'),
-  '/^order\/(\d+)\/bill$/' => array('module' => 'order_bill', 'auth' => 'auth_db_basic', 'tpl' => 'print'),
-  '/^order\/(\d+)\/blank$/' => array('module' => 'order_blank', 'auth' => 'auth_db_basic', 'tpl' => 'print'),
-  '/^order\/(\d+)\/1c$/' => array('module' => 'order_1c', 'auth' => 'auth_db_basic'),
-  '/^order\/(\d+)\/1c2$/' => array('module' => 'order_1c2', 'auth' => 'auth_db_basic'),
-  '/^order\/(\d+)\/(\d+)$/' => array('module' => 'model', 'auth' => 'auth_db_basic'),
-  '/^stock\/(\d+)$/' => array('module' => 'stock', 'auth' => 'auth_db_basic'),
-  '/^tk$/' => array('module' => 'tk', 'auth' => 'auth_db_basic'),
-  '/^request\/(\d+)$/' => array('module' => 'request', 'auth' => 'auth_db_basic'),
-  '/^request$/' => array('module' => 'request_all', 'auth' => 'auth_db_basic'),
-  '/^models$/' => array('module' => 'models', 'auth' => 'auth_db_basic'),
-  '/^users$/' => array('module' => 'users', 'auth' => 'auth_db_basic'),
-  '/^users\/(\d+)$/' => array('module' => 'user', 'auth' => 'auth_db_basic'),
-  '/^shop$/' => array('module' => 'shop', 'auth' => 'auth_db_basic'),
-  '/^shop\/(\d+)$/' => array('module' => 'model', 'auth' => 'auth_db_basic'),
-  '/^shop\/add\/(\d+)$/' => array('module' => 'shop_add', 'auth' => 'auth_db_basic'),
-  '/^archive$/' => array('module' => 'archive', 'auth' => 'auth_db_basic'),
-  '/^item\/(\d+)$/' => array('module' => 'item', 'auth' => 'auth_db_basic'),
-  '/^item\/(\d+)\/edit$/' => array('module' => 'item_edit', 'auth' => 'auth_db_basic'),
-  '/^item\/(\d+)\/repair$/' => array('module' => 'item_repair', 'auth' => 'auth_db_basic'),
-  '/^price$/' => array('module' => 'price', 'auth' => 'auth_db_basic'),
-  '/^tksearch$/' => array('module' => 'tksearch', 'auth' => 'auth_db_basic'),
-  '/^report$/' => array('module' => 'report', 'auth' => 'auth_db_basic'),
-  '/^rko$/' => array('module' => 'rko', 'auth' => 'auth_db_basic'),
-  '/^return$/' => array('module' => 'return', 'auth' => 'auth_db_basic'),
-  '/^sale$/' => array('module' => 'sales', 'auth' => 'auth_db_basic'),
-  '/^sale\/(\d+)$/' => array('module' => 'sale', 'auth' => 'auth_db_basic'),
-  '/^sale\/(\d+)\/add$/' => array('module' => 'sale_add', 'auth' => 'auth_db_basic'),
-  '/^sale\/(\d+)\/add\/(\d+)$/' => array('module' => 'sale_add_item', 'auth' => 'auth_db_basic'),
-  '/^sale\/(\d+)\/talon$/' => array('module' => 'sale_talon', 'auth' => 'auth_db_basic', 'tpl' => 'print'),
-  '/^sale\/(\d+)\/blank$/' => array('module' => 'sale_blank', 'auth' => 'auth_db_basic', 'tpl' => 'print'),
-  '/^repair$/' => array('module' => 'repair', 'auth' => 'auth_db_basic'),
-  '/^repair\/(\d+)$/' => array('module' => 'repair_item', 'auth' => 'auth_db_basic', 'tpl' => 'print'),*/
-);
+// $urlconf = array(
+// 	'' => array('module' => 'front'), // гл. страница
+//   '/^login$/' => array('module' => 'auth_basic'), // страница авторизации
+// //   '/^logout$/' => array('module' => 'admin', 'auth' => 'auth_basic'),
+// //   '/^admin\/(\d+)$/' => array('module' => 'admin', 'auth' => 'auth_basic'),
+// );
+
+$urlconf = [
+  '' => [
+    'module' => 'front',
+    'GET' => 'front_get',
+    'POST' => 'front_post'
+  ],
+
+  '/^login$/' => [
+    'module' => 'login',
+    'GET' => 'login_get',
+    'POST' => 'login_post'
+  ],
+
+  // // Пример маршрута с параметром
+  // '~^admin/(\d+)$~' => [
+  //     'module' => 'admin',
+  //     'auth' => 'auth_basic',
+  //     'GET' => 'admin_item_get',
+  //     'POST' => 'admin_item_post'
+  // ],
+
+  // // Выход
+  // '~^logout$~' => [
+  //     'module' => 'auth_basic',
+  //     'GET' => 'logout_handler'
+  // ]
+];
 
 header('Cache-Control: no-cache, must-revalidate');
 header('Expires: Sat, 26 Jul 1997 05:00:00 GMT');

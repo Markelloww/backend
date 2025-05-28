@@ -10,27 +10,25 @@ function front_get($request)
 	$messages = array();
 	$values = array();
 
-	// Когда успешно сохранили форму (потом сделать, чтобы 1 раз выводилось и пропадал пароль)
 	if (!empty($_COOKIE['save'])) {
 		if (!empty($_COOKIE['login']) && !empty($_COOKIE['pass'])) {
 			$messages[] = 'Спасибо, результаты сохранены.';
-			$messages[] = sprintf('Вы можете <a href="login.php">войти</a> с логином <strong>%s</strong>
+			$messages[] = sprintf('Вы можете <a href="%s">войти</a> с логином <strong>%s</strong>
                 и паролем <strong>%s</strong> для изменения данных.',
-				htmlspecialchars(strip_tags($_COOKIE['login']), ENT_QUOTES, 'UTF-8'),
+				htmlspecialchars(url('final/login'), ENT_QUOTES, 'UTF-8'),
+				htmlspecialchars(strip_tags(string: $_COOKIE['login']), ENT_QUOTES, 'UTF-8'),
 				htmlspecialchars(strip_tags($_COOKIE['pass']), ENT_QUOTES, 'UTF-8')
 			);
+			$_SESSION['login'] = $_COOKIE['login'];
 		}
-		// setcookie('save', '', time() - 3600, '/');
-		// setcookie('login', '', time() - 3600, '/');
-		// setcookie('pass', '', time() - 3600, '/');
 	}
 
-	if (!empty($_COOKIE['login'])) {
+	if (!empty($_SESSION['login'])) {
 		$stmt = db_query(
 			"SELECT a.* FROM final_applications a 
              JOIN final_users u ON a.id = u.application_id 
              WHERE u.username = ?",
-			$_COOKIE['login']
+			$_SESSION['login']
 		);
 
 		if ($stmt && !empty($stmt)) {
@@ -51,6 +49,10 @@ function front_get($request)
 		'values' => $values,
 		'errors' => $errors
 	];
+
+	// if (isset($_COOKIE[session_name()]) && !empty($_SESSION['login'])) {
+	// 	echo "flag!\n";
+	// }
 
 	return theme('home', $data);
 }

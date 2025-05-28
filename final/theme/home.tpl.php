@@ -758,11 +758,31 @@
 					</div>
 				</form>
 				<br>
-				<?php if (!empty($messages)): ?>
-					<div class="form-messages">
-						<?php foreach ($messages as $message): ?>
-							<div class="message"><?= $message ?></div>
-						<?php endforeach; ?>
+				<?php if (!empty($messages) || !empty($errors)): ?>
+					<div id="messageModal" class="modal" style="display: block;">
+						<div class="modal-content">
+							<span class="close">&times;</span>
+							<?php if (!empty($messages)): ?>
+								<div class="form-messages">
+									<?php foreach ($messages as $message): ?>
+										<div class="message"><?= $message ?></div>
+									<?php endforeach; ?>
+								</div>
+								<?php
+								setcookie('save', '', time() - 3600, '/');
+								?>
+							<?php endif; ?>
+							<?php if (!empty($errors)): ?>
+								<div class="form-messages">
+									<?php foreach ($errors as $error): ?>
+										<div class="message"><?= $error ?></div>
+									<?php endforeach; ?>
+								</div>
+								<?php
+								setcookie('errors', '', time() - 3600, '/');
+								?>
+							<?php endif; ?>
+						</div>
 					</div>
 				<?php endif; ?>
 			</section>

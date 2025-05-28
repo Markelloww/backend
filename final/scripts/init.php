@@ -1,5 +1,6 @@
 <?php
 
+global $db;
 function init($request = array(), $urlconf = array())
 {
 	$response = array();
