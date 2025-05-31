@@ -13,6 +13,7 @@
     <h1>Вход в систему</h1>
 
     <form method="POST" action="">
+      <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token) ?>">
       <div class="input-group">
         <label for="login">Логин</label>
         <input type="text" id="login" name="login" placeholder="Введите ваш логин"  value="<?php echo isset($_COOKIE['login']) ? htmlspecialchars($_COOKIE['login']) : ''; ?>" required>

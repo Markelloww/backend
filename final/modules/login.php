@@ -6,20 +6,36 @@ require_once './scripts/db.php';
 function login_get($request, $db)
 {
 
-  // вот здесь будет csrf токен генерироваться, затем передаваться в шаблон
+	$csrfToken = generateCSRFToken();
 
-  return theme('login');
+  return theme('login', ['csrf_token' => $csrfToken]);
 }
 
 function login_post($request, $db)
 {
-  // валидируем csrf защиту
+  if (!validateCSRFToken()) {
+    return access_denied();
+  }
 
-  $login = $request['post']['login'];
-  $password = $request['post']['password'];
+  $errors = [];
+  $fields = [
+    'login' => trim($_POST['login'] ?? ''),
+    'password' => trim($_POST['password'] ?? ''),
+  ];
 
-  if (auth_check($login, $password)) {
-    $_SESSION['login'] = $login;
+  if (empty($fields['login'])) {
+    $errors['login'] = 'Поле "Логин" обязательно';
+  }
+  if (empty($fields['password'])) {
+    $errors['password'] = 'Поле "Пароль" обязательно';
+  }
+
+  if (!empty($errors)) {
+    return theme('login', ['errors' => $errors, 'values' => $fields]);
+  }
+
+  if (auth_check($fields['login'], $fields['password'])) {
+    $_SESSION['login'] = $fields['login'];
     return redirect('');
   } else {
     $errors[] = 'Введены неверные данные';

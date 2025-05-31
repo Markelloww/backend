@@ -715,44 +715,30 @@
 			</section>
 			<section class="formcarry-container">
 				<form method="POST" action="">
+					<input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token) ?>">
 					<div class="formcarry-block">
 						<input type="text" name="name" id="fc-generated-1-name" placeholder="Ваше имя"
 							value="<?= htmlspecialchars($values['name'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
 							class="<?= isset($errors['name']) ? 'error-field' : '' ?>">
-						<?php if (isset($errors['name'])): ?>
-							<div class="error-message"><?= $errors['name'] ?></div>
-						<?php endif; ?>
 					</div>
 					<div class="formcarry-block">
 						<input type="text" name="phone" id="fc-generated-1-number" placeholder="Номер телефона"
 							value="<?= htmlspecialchars($values['phone'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
 							class="<?= isset($errors['phone']) ? 'error-field' : '' ?>">
-						<?php if (isset($errors['phone'])): ?>
-							<div class="error-message"><?= $errors['phone'] ?></div>
-						<?php endif; ?>
 					</div>
 					<div class="formcarry-block">
 						<input type="email" name="email" id="fc-generated-1-email" placeholder="E-mail"
 							value="<?= htmlspecialchars($values['email'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
 							class="<?= isset($errors['email']) ? 'error-field' : '' ?>">
-						<?php if (isset($errors['email'])): ?>
-							<div class="error-message"><?= $errors['email'] ?></div>
-						<?php endif; ?>
 					</div>
 					<div class="formcarry-block">
 						<textarea name="message" id="fc-generated-1-message" placeholder="Ваш комментарий"
 							class="<?= isset($errors['message']) ? 'error-field' : '' ?>"><?=
 								  	htmlspecialchars($values['message'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea>
-						<?php if (isset($errors['message'])): ?>
-							<div class="error-message"><?= $errors['message'] ?></div>
-						<?php endif; ?>
 					</div>
 					<div class="formcarry-block" id="agree-block">
 						<input type="checkbox" required name="terms" id="terms" <?= (isset($_POST['terms']) || !empty($values)) ? 'checked' : '' ?>>
 						<label for="terms" id="agree-label">Я согласен на обработку своих персональных данных</label>
-						<?php if (isset($errors['terms'])): ?>
-							<div class="error-message"><?= $errors['terms'] ?></div>
-						<?php endif; ?>
 					</div>
 					<div class="formcarry-block">
 						<button id="send" type="submit">
