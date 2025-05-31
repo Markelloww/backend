@@ -1,12 +1,6 @@
 <?php
 define('DISPLAY_ERRORS', 1);
-define(
-  'INCLUDE_PATH',
-  __DIR__ . '/static' . PATH_SEPARATOR .
-  __DIR__ . '/scripts' . PATH_SEPARATOR .
-  __DIR__ . '/modules'
-);
-set_include_path(INCLUDE_PATH);
+define('INCLUDE_PATH', './scripts' . PATH_SEPARATOR . './modules');
 
 $config = parse_ini_file('./config.ini');
 
@@ -29,41 +23,15 @@ $conf = array(
   'db_psw' => $config['db_pass']
 );
 
-// $urlconf = array(
-// 	'' => array('module' => 'front'), // гл. страница
-//   '/^login$/' => array('module' => 'auth_basic'), // страница авторизации
-// //   '/^logout$/' => array('module' => 'admin', 'auth' => 'auth_basic'),
-// //   '/^admin\/(\d+)$/' => array('module' => 'admin', 'auth' => 'auth_basic'),
-// );
+$urlconf = array(
+  '' => array('module' => 'front'),
+  '/^login$/' => array('module' => 'login'),
+  '/^admin$/' => array('module' => 'admin'),
+  '/^logout$/' => array('module' => 'logout'),
+);
 
-$urlconf = [
-  '' => [
-    'module' => 'front',
-    'GET' => 'front_get',
-    'POST' => 'front_post'
-  ],
-
-  '/^login$/' => [
-    'module' => 'login',
-    'GET' => 'login_get',
-    'POST' => 'login_post'
-  ],
-
-  // // Пример маршрута с параметром
-  // '~^admin/(\d+)$~' => [
-  //     'module' => 'admin',
-  //     'auth' => 'auth_basic',
-  //     'GET' => 'admin_item_get',
-  //     'POST' => 'admin_item_post'
-  // ],
-
-  // // Выход
-  // '~^logout$~' => [
-  //     'module' => 'auth_basic',
-  //     'GET' => 'logout_handler'
-  // ]
-];
 
 header('Cache-Control: no-cache, must-revalidate');
 header('Expires: Sat, 26 Jul 1997 05:00:00 GMT');
 header('Content-Type: text/html; charset=' . $conf['charset']);
+header('Content-Type: application/json');

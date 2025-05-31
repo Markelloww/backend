@@ -5,6 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="./theme/css/style.css">
+	<title>Финальный проект</title>
 	<script src="https://kit.fontawesome.com/13c267004c.js" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
@@ -754,9 +755,21 @@
 						<?php endif; ?>
 					</div>
 					<div class="formcarry-block">
-						<button id="send" type="submit">Оставить заявку!</button>
+						<button id="send" type="submit">
+							<?php if (!isset($_SESSION['login'])): ?>
+								Оставить заявку!
+							<?php else: ?>
+								Изменить заявку!
+							<?php endif; ?>
+						</button>
 					</div>
 				</form>
+				<?php if (isset($_SESSION['login'])): ?>
+					<form action="?q=logout" method="POST">
+						<input id="logoutButton" type="submit" name="logout" value="Выйти" />
+					</form>
+					<br>
+				<?php endif; ?>
 				<br>
 				<?php if (!empty($messages) || !empty($errors)): ?>
 					<div id="messageModal" class="modal" style="display: block;">

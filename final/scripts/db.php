@@ -16,15 +16,16 @@
 //     FOREIGN KEY (application_id) REFERENCES final_applications(id) ON DELETE SET NULL
 // );
 
+global $db;
+
 try {
-    global $db;
     $db = new PDO(
         'mysql:host=' . conf('db_host') . ';dbname=' . conf('db_name'),
         conf('db_user'),
         conf('db_psw'),
         array(PDO::MYSQL_ATTR_FOUND_ROWS => true, PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
 } catch (PDOException $e) {
-	die("Ошибка БД!");
+	die("Ошибка БД!". $e->getMessage());
 }
 
 function db_row($stmt)
@@ -139,6 +140,7 @@ function db_pager_query()
 
 function db_array()
 {
+    global $db;
 	$args = func_get_args();
 	$key = array_shift($args);
 	$query = array_shift($args);
@@ -155,4 +157,25 @@ function db_array()
 		}
 	}
 	return $r;
+}
+
+function auth_check($login, $password)
+{
+    global $db;
+    try {
+        $stmt = $db->prepare("SELECT password_hash FROM final_users WHERE username = :login");
+        $stmt->bindParam(':login', $login, PDO::PARAM_STR);
+        $stmt->execute();
+        
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if (!$user) {
+            return false;
+        }
+        
+        return password_verify($password, $user['password_hash']);
+    }
+    catch (Exception $e) {
+        return false;
+    }
 }
