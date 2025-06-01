@@ -3,165 +3,165 @@ global $db;
 
 function init($request = array(), $urlconf = array())
 {
-  $response = array();
+	$response = array();
 
-  $template = 'page';
+	$template = 'page';
 
-  $c = array();
+	$c = array();
 
-  $q = isset($request['url']) ? $request['url'] : '';
-  $method = isset($request['method']) ? $request['method'] : 'get';
-  foreach ($urlconf as $url => $r) {
-    $matches = array();
-    if ($url == '' || $url[0] != '/') {
-      if ($url != $q) {
-        continue;
-      }
-    } else {
-      if (!preg_match_all($url, $q, $matches)) {
-        continue;
-      }
-    }
+	$q = isset($request['url']) ? $request['url'] : '';
+	$method = isset($request['method']) ? $request['method'] : 'get';
+	foreach ($urlconf as $url => $r) {
+		$matches = array();
+		if ($url == '' || $url[0] != '/') {
+			if ($url != $q) {
+				continue;
+			}
+		} else {
+			if (!preg_match_all($url, $q, $matches)) {
+				continue;
+			}
+		}
 
-    if (isset($r['auth'])) {
-      require_once($r['auth'] . '.php');
-      $auth = auth($request, $r);
-      if ($auth) {
-        return $auth;
-      }
-    }
+		if (isset($r['auth'])) {
+			require_once($r['auth'] . '.php');
+			$auth = auth($request, $r);
+			if ($auth) {
+				return $auth;
+			}
+		}
 
-    if (isset($r['tpl'])) {
-      $template = $r['tpl'];
-    }
+		if (isset($r['tpl'])) {
+			$template = $r['tpl'];
+		}
 
-    if (!isset($r['module'])) {
-      continue;
-    }
-    require_once($r['module'] . '.php');
-    $func = sprintf('%s_%s', $r['module'], $method);
-    if (!function_exists($func)) {
-      continue;
-    }
+		if (!isset($r['module'])) {
+			continue;
+		}
+		require_once($r['module'] . '.php');
+		$func = sprintf('%s_%s', $r['module'], $method);
+		if (!function_exists($func)) {
+			continue;
+		}
 
-    $params = array('request' => $request, 'db' => $db);
-    array_shift($matches);
-    foreach ($matches as $key => $match) {
-      $params[$key] = $match[0];
-    }
+		$params = array('request' => $request, 'db' => $db);
+		array_shift($matches);
+		foreach ($matches as $key => $match) {
+			$params[$key] = $match[0];
+		}
 
-    if ($result = call_user_func_array($func, $params)) {
-      if (is_array($result)) {
-        $response = array_merge($response, $result);
-        if (!empty($response['headers'])) {
-          return $response;
-        }
-      } else {
-        $c['#content'][$r['module']] = $result;
-      }
-    }
-  }
+		if ($result = call_user_func_array($func, $params)) {
+			if (is_array($result)) {
+				$response = array_merge($response, $result);
+				if (!empty($response['headers'])) {
+					return $response;
+				}
+			} else {
+				$c['#content'][$r['module']] = $result;
+			}
+		}
+	}
 
-  if (!empty($c)) {
-    $c['#request'] = $request;
-    $response['entity'] = theme($template, $c);
-  } else {
-    $response = not_found();
-  }
+	if (!empty($c)) {
+		$c['#request'] = $request;
+		$response['entity'] = theme($template, $c);
+	} else {
+		$response = not_found();
+	}
 
-  $response['headers']['Content-Type'] = 'text/html; charset=' . conf('charset');
+	$response['headers']['Content-Type'] = 'text/html; charset=' . conf('charset');
 
-  return $response;
+	return $response;
 }
 
 function conf($key)
 {
-  global $conf;
-  return isset($conf[$key]) ? $conf[$key] : FALSE;
+	global $conf;
+	return isset($conf[$key]) ? $conf[$key] : FALSE;
 }
 
 function url($addr = '', $params = array())
 {
-  global $conf;
+	global $conf;
 
-  if ($addr == '' && isset($_GET['q'])) {
-    $addr = strip_tags($_GET['q']);
-  }
+	if ($addr == '' && isset($_GET['q'])) {
+		$addr = strip_tags($_GET['q']);
+	}
 
-  $clean = conf('clean_urls');
-  $r = $clean ? '/' : '?q=';
-  $r = conf('basedir') . ltrim($r . strip_tags($addr), '/'); // Добавляем basedir и удаляем лишний слеш
+	$clean = conf('clean_urls');
+	$r = $clean ? '/' : '?q=';
+	$r = conf('basedir') . ltrim($r . strip_tags($addr), '/'); // Добавляем basedir и удаляем лишний слеш
 
-  if (count($params) > 0) {
-    $r .= $clean ? '?' : '&';
-    $r .= implode('&', $params);
-  }
-  return $r;
+	if (count($params) > 0) {
+		$r .= $clean ? '?' : '&';
+		$r .= implode('&', $params);
+	}
+	return $r;
 }
 
 
 function redirect($l = NULL, $params = array(), $statusCode = 302)
 {
-  if (is_null($l)) {
-    $location = $_SERVER['REQUEST_URI'];
-  } else {
-    $location = conf('basedir') . $l;
-  }
+	if (is_null($l)) {
+		$location = $_SERVER['REQUEST_URI'];
+	} else {
+		$location = conf('basedir') . $l;
+	}
 
-  if (!empty($params)) {
-    $location .= '?' . http_build_query($params);
-  }
+	if (!empty($params)) {
+		$location .= '?' . http_build_query($params);
+	}
 
-  return array(
-    'headers' => array('Location' => $location),
-    'statusCode' => $statusCode
-  );
+	return array(
+		'headers' => array('Location' => $location),
+		'statusCode' => $statusCode
+	);
 }
 
 
 
 function access_denied()
 {
-  return array(
-    'headers' => array('HTTP/1.1 403 Forbidden'),
-    'entity' => theme('403'),
-  );
+	return array(
+		'headers' => array('HTTP/1.1 403 Forbidden'),
+		'entity' => theme('403'),
+	);
 }
 
 function not_found()
 {
-  return array(
-    'headers' => array('HTTP/1.1 404 Not Found'),
-    'entity' => theme('404'),
-  );
+	return array(
+		'headers' => array('HTTP/1.1 404 Not Found'),
+		'entity' => theme('404'),
+	);
 }
 
 function theme($t, $c = array())
 {
-  $template = conf('theme') . '/' . str_replace('/', '_', $t) . '.tpl.php';
-  if (!file_exists($template)) {
-    return implode('', $c);
-  }
+	$template = conf('theme') . '/' . str_replace('/', '_', $t) . '.tpl.php';
+	if (!file_exists($template)) {
+		return implode('', $c);
+	}
 
-  ob_start();
-  extract($c);
-  include $template;
-  $contents = ob_get_contents();
-  ob_end_clean();
-  return $contents;
+	ob_start();
+	extract($c);
+	include $template;
+	$contents = ob_get_contents();
+	ob_end_clean();
+	return $contents;
 }
 
 function generateCSRFToken(): string
 {
-  if (empty($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-  }
+	if (empty($_SESSION['csrf_token'])) {
+		$_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+	}
 
-  return $_SESSION['csrf_token'];
+	return $_SESSION['csrf_token'];
 }
 
 function validateCSRFToken(): bool
 {
-  $token = $_POST['csrf_token'] ?? '';
-  return !empty($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
+	$token = $_POST['csrf_token'] ?? '';
+	return !empty($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
 }

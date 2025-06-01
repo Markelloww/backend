@@ -55,8 +55,8 @@ function front_get($request, $db)
 function front_post($request, $db)
 {
 	if (!validateCSRFToken()) {
-        return access_denied();
-    }
+		return access_denied();
+	}
 
 	$errors = [];
 	$fields = [
