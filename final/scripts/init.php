@@ -99,7 +99,6 @@ function url($addr = '', $params = array())
 	return $r;
 }
 
-
 function redirect($l = NULL, $params = array(), $statusCode = 302)
 {
 	if (is_null($l)) {
@@ -117,8 +116,6 @@ function redirect($l = NULL, $params = array(), $statusCode = 302)
 		'statusCode' => $statusCode
 	);
 }
-
-
 
 function access_denied()
 {

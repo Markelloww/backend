@@ -55,17 +55,17 @@ function admin_post($request, $db)
 			'comment' => $_POST['biography']
 		];
 		if (update_application($id, $data)) {
-			return redirect('?q=admin');
+			return redirect('admin');
 		}
 	} elseif (isset($_POST['delete'])) {
 		$id = $_POST['delete'];
 		if (delete_application($id)) {
-			return redirect('?q=admin');
+			return redirect('admin');
 		}
 	} elseif (isset($_POST['edit'])) {
 		$id = $_POST['edit'];
 		$_SESSION['edit_data'] = get_application_by_id($id);
 	}
 
-	return redirect('?q=admin');
+	return redirect('admin');
 }

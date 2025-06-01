@@ -21,7 +21,7 @@ function front_get($request, $db)
 			$messages[] = 'Спасибо, результаты сохранены.';
 			$messages[] = sprintf('Вы можете <a href="%s">войти</a> с логином <strong>%s</strong>
                 и паролем <strong>%s</strong> для изменения данных в любой момент.',
-				htmlspecialchars(url('?q=login'), ENT_QUOTES, 'UTF-8'),
+				htmlspecialchars(url('login'), ENT_QUOTES, 'UTF-8'),
 				htmlspecialchars(strip_tags(string: $_COOKIE['login']), ENT_QUOTES, 'UTF-8'),
 				htmlspecialchars(strip_tags($_COOKIE['pass']), ENT_QUOTES, 'UTF-8')
 			);
